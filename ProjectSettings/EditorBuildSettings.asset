@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SurgeryRoom.unity
     guid: d1a5eb898c606f942ac4d50da1e4af39
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: f503b0e5bfb031442ad7433817985071
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 1b67ead6b4f611c4fb309dc116172884,
       type: 2}
