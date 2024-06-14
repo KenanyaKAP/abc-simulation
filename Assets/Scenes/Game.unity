@@ -928,6 +928,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  onWelcome:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameStart:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 785629826}
+        m_TargetAssemblyTypeName: PasienController, Assembly-CSharp
+        m_MethodName: StartPasien
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameWin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &225302158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2711,7 +2735,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3951730fc3cbe4abf64bd8a569db7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vtvfChance: 0.5
+  asistolChance: 0.5
   state: 0
+  maskerTerpasang: 0
+  monitorTerpasang: 0
+  infusTerpasang: 0
+  startDelayTime: 5
+  minShock: 3
+  on1stShockDone:
+    m_PersistentCalls:
+      m_Calls: []
+  secondShockDelayTime: 10
+  on2ndShockDone:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &831948368
 Rigidbody:
   m_ObjectHideFlags: 0

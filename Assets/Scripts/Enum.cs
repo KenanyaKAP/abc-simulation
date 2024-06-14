@@ -14,8 +14,9 @@ public enum PlayerState {
 }
 
 public enum PasienState {
+    Idle,
     Normal,
-    Vt,
+    VtVf,
     Asistol
 }
 
