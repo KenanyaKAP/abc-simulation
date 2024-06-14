@@ -48,8 +48,8 @@ public class PasienController : MonoBehaviour {
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
-            Debug.Log("Hard Give Aphinepherin!");
-            GiveObat(JenisObat.Aphinepherin);
+            Debug.Log("Hard Give Epinephrine!");
+            GiveObat(JenisObat.Epinephrine);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
@@ -115,12 +115,12 @@ public class PasienController : MonoBehaviour {
         state = PasienState.Normal;
         on1stShockDone.Invoke();
 
-        // Need to Give Aphinepherin
+        // Need to Give Epinephrine
         obatGiven = JenisObat.None;
         yield return new WaitUntil(() => obatGiven != JenisObat.None);
 
         // Wrong medicine 
-        if (obatGiven != JenisObat.Aphinepherin) {
+        if (obatGiven != JenisObat.Epinephrine) {
             // Game Over
             GameManager.Instance.GameOver();
             yield break;
@@ -163,12 +163,12 @@ public class PasienController : MonoBehaviour {
         state = PasienState.Normal;
         on1stpcrDone.Invoke();
 
-        // Need to Give Aphinepherin
+        // Need to Give Epinephrine
         obatGiven = JenisObat.None;
         yield return new WaitUntil(() => obatGiven != JenisObat.None);
 
         // Wrong medicine 
-        if (obatGiven != JenisObat.Aphinepherin) {
+        if (obatGiven != JenisObat.Epinephrine) {
             // Game Over
             GameManager.Instance.GameOver();
             yield break;

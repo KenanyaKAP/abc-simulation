@@ -22,6 +22,6 @@ public enum PasienState {
 
 public enum JenisObat {
     None,
-    Aphinepherin,
+    Epinephrine,
     Amiodarone,
 }
