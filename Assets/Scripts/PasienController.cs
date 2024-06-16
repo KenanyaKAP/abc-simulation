@@ -19,18 +19,19 @@ public class PasienController : MonoBehaviour {
     public bool infusTerpasang;
 
     [Header("1. Event Start")]
-    [SerializeField] int startDelayTime = 5;
+    [SerializeField] int checkMonitorDelayTime = 5;
     
-    [Header("2. Event Vt-Vf")]
-    [SerializeField] int minShock = 3;
+    [Header("2. Event Vt/Vf")]
+    [SerializeField] int minShock = 1;
     public UnityEvent on1stShockDone;
-    [SerializeField] int secondShockDelayTime = 10;
-    public UnityEvent on2ndShockDone;
+    public UnityEvent on2stShockDone;
+    public UnityEvent on3stShockDone;
     
-
-    [Header("3. Event Asistol")]
-    [SerializeField] int minPCR = 10;
+    [Header("3. Event Asistol/PEA And Vt/Vf")]
+    [SerializeField] int minPcr = 30;
     public UnityEvent on1stpcrDone;
+    public UnityEvent on2stpcrDone;
+    public UnityEvent on3stpcrDone;
 
     void Awake() {
         if (!Instance) {
@@ -87,11 +88,10 @@ public class PasienController : MonoBehaviour {
     }
 
     // ============================= IEnumerator Function =============================
-
     IEnumerator IEStartPasien() {
         state = PasienState.Normal;
 
-        yield return new WaitForSeconds(startDelayTime);
+        yield return new WaitForSeconds(checkMonitorDelayTime);
 
         float randomEvent = Random.Range(0f, vtvfChance + asistolChance);
         if (randomEvent < vtvfChance) {
@@ -109,15 +109,31 @@ public class PasienController : MonoBehaviour {
         // Initial State VtVf
         state = PasienState.VtVf;
         shockDone = 0;
+        
+    //////////////////////////////////////////////// STEP 1 ////////////////////////////////////////////////////////////////////////
+        // Phase 1
 
-        // Need to shock
-        yield return new WaitUntil(() => shockDone >= minShock);
-        state = PasienState.Normal;
+        yield return new WaitUntil(() => shockDone >= minShock ); // need shock
         on1stShockDone.Invoke();
+        yield return new WaitUntil(() => pcrDone >= minPcr );   // need pcr
+        on1stpcrDone.Invoke();
+        state = PasienState.Normal;
 
-        // Need to Give Epinephrine
+        // Wait Condition in montitor
+        yield return new WaitForSeconds(checkMonitorDelayTime);
+
+        // Phase 2
+        state = PasienState.VtVf;
+        shockDone = 0;
+        pcrDone   = 0;
+
+        yield return new WaitUntil(() => shockDone >= minShock ); // need shock
+        on2stShockDone.Invoke();
+        yield return new WaitUntil(() => pcrDone >= minPcr ); // need pcr
+        on2stpcrDone.Invoke(); 
+        
         obatGiven = JenisObat.None;
-        yield return new WaitUntil(() => obatGiven != JenisObat.None);
+        yield return new WaitUntil(() => obatGiven != JenisObat.None); // Need to Give Apinepherin
 
         // Wrong medicine 
         if (obatGiven != JenisObat.Epinephrine) {
@@ -125,18 +141,20 @@ public class PasienController : MonoBehaviour {
             GameManager.Instance.GameOver();
             yield break;
         }
-        
-        // Wait for second Vtvf
-        yield return new WaitForSeconds(secondShockDelayTime);
-        
-        // Vtvf again
+        state = PasienState.Normal;
+
+        // Wait Condition in montitor
+        yield return new WaitForSeconds(checkMonitorDelayTime);
+
+        //Phase 3
         state = PasienState.VtVf;
         shockDone = 0;
+        pcrDone   = 0;
 
-        // Need to shock
-        yield return new WaitUntil(() => shockDone >= minShock);
-        state = PasienState.Normal;
-        on2ndShockDone.Invoke();
+        yield return new WaitUntil(() => shockDone >= minShock ); // need shock
+        on3stShockDone.Invoke();
+        yield return new WaitUntil(() => pcrDone >= minPcr ); // need pcr
+        on3stpcrDone.Invoke(); 
 
         // Need to Give Amiodarone
         obatGiven = JenisObat.None;
@@ -149,19 +167,35 @@ public class PasienController : MonoBehaviour {
             yield break;
         }
 
+        // Wait Condition in montitor
+        yield return new WaitForSeconds(checkMonitorDelayTime);
+        state = PasienState.Normal;
+        yield return new WaitForSeconds(checkMonitorDelayTime);
         // Pasien survived
         GameManager.Instance.GameWin();
     }
 
     IEnumerator IEStartAsistol() {
-        // Initial State Asistol
+        //State Asistol
+        //phase 1
         state = PasienState.Asistol;
         pcrDone = 0;
 
-        // Need to shock
-        yield return new WaitUntil(() => pcrDone >= minPCR);
+        // Need to pcr
+        yield return new WaitUntil(() => pcrDone >= minPcr);
         state = PasienState.Normal;
         on1stpcrDone.Invoke();
+
+        // Wait Condition in montitor
+        yield return new WaitForSeconds(checkMonitorDelayTime);
+
+        //phase 2
+        state = PasienState.Asistol;
+        pcrDone = 0;
+
+        // Need to pcr
+        yield return new WaitUntil(() => pcrDone >= minPcr);
+        on2stpcrDone.Invoke();
 
         // Need to Give Epinephrine
         obatGiven = JenisObat.None;
@@ -174,6 +208,9 @@ public class PasienController : MonoBehaviour {
             yield break;
         }
 
+        yield return new WaitForSeconds(checkMonitorDelayTime);
+        state = PasienState.Normal;
+        yield return new WaitForSeconds(checkMonitorDelayTime);
         // Pasien survived
         GameManager.Instance.GameWin();
     }
