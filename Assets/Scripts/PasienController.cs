@@ -43,6 +43,7 @@ public class PasienController : MonoBehaviour {
     }
 
     void Update() {
+        // Debug
         if (Input.GetKeyDown(KeyCode.Space)) {
             Debug.Log("Hard Shock!");
             ShockPasien();
@@ -178,7 +179,7 @@ public class PasienController : MonoBehaviour {
     IEnumerator IEStartAsistol() {
         //State Asistol
         //phase 1
-        state = PasienState.Asistol;
+        state = PasienState.Asystole;
         pcrDone = 0;
 
         // Need to pcr
@@ -190,7 +191,7 @@ public class PasienController : MonoBehaviour {
         yield return new WaitForSeconds(checkMonitorDelayTime);
 
         //phase 2
-        state = PasienState.Asistol;
+        state = PasienState.Asystole;
         pcrDone = 0;
 
         // Need to pcr

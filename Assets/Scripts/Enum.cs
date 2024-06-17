@@ -17,7 +17,14 @@ public enum PasienState {
     Idle,
     Normal,
     VtVf,
-    Asistol
+    Asystole
+}
+
+public enum ECGLine {
+    Inactive,
+    PEA,
+    VtVf,
+    Asystole
 }
 
 public enum JenisObat {
