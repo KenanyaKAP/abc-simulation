@@ -32,6 +32,10 @@ public class PasienController : MonoBehaviour {
     public UnityEvent on1stpcrDone;
     public UnityEvent on2stpcrDone;
     public UnityEvent on3stpcrDone;
+    
+    [Header("Component")]
+    [SerializeField] GameObject spine1;
+    [SerializeField] GameObject spine2;
 
     void Awake() {
         if (!Instance) {
@@ -44,10 +48,15 @@ public class PasienController : MonoBehaviour {
 
     void Update() {
         // Debug
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.N)) {
             Debug.Log("Hard Shock!");
             ShockPasien();
-        }
+        }  
+        
+        if (Input.GetKeyDown(KeyCode.M)) {
+            Debug.Log("Hard PCR!");
+            PCRPasien();
+        }  
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             Debug.Log("Hard Give Epinephrine!");
@@ -74,6 +83,8 @@ public class PasienController : MonoBehaviour {
         shockDone += 1;
 
         // Animation
+        LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .12f).setEaseOutQuad().setLoopPingPong(1);
+        LeanTween.rotateAroundLocal(spine2,Vector3.right, 10f, .12f).setEaseOutQuad().setLoopPingPong(1);
     }
 
     int pcrDone = 0;
@@ -81,6 +92,8 @@ public class PasienController : MonoBehaviour {
         pcrDone += 1;
 
         // Animation
+        LeanTween.rotateAroundLocal(spine1,Vector3.right, 10f, .2f).setEaseOutQuart().setOnComplete(() => LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .35f).setEaseInQuad());
+        LeanTween.scaleZ(spine1, 1.2f, .1f).setLoopPingPong(1);
     }
 
     JenisObat obatGiven;

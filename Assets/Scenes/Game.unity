@@ -1137,6 +1137,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 321159038}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &329796734 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4209834060764305996, guid: b43a278fdbb74a541b75e3fd222f075f,
+    type: 3}
+  m_PrefabInstance: {fileID: 785629823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &353888606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2762,6 +2768,8 @@ MonoBehaviour:
   on3stpcrDone:
     m_PersistentCalls:
       m_Calls: []
+  spine1: {fileID: 329796734}
+  spine2: {fileID: 1931196683}
 --- !u!1 &819551840
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,9 +3217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fb6cf67698f4c4d975e7c4864db9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeLine: 0
+  activeLine: 1
   isRendering: 1
-  cycleTime: 0.1
+  cycleTime: 3
 --- !u!54 &831948368
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6308,6 +6316,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921175320}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1931196683 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4954775441048517613, guid: b43a278fdbb74a541b75e3fd222f075f,
+    type: 3}
+  m_PrefabInstance: {fileID: 785629823}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1972016905
 GameObject:
   m_ObjectHideFlags: 0
@@ -7172,6 +7186,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1746759390924624340, guid: a96ccc556a6295e45bb05d6be962712a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9ef48a9b6e1a6974bb71c53a04f2e7fc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7316,6 +7335,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cairan Obat
       objectReference: {fileID: 0}
+    - target: {fileID: 8175474377026936504, guid: 487c8884b9bff2943985a345a4e193ce,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 720f4e60c52e6b549ae66f7739cbe8ce, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
