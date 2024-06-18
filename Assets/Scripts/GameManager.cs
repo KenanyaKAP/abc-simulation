@@ -58,6 +58,4 @@ public class GameManager : MonoBehaviour {
         onGameStart.Invoke();
         Debug.Log("OnGameStart Invoked");
     }
-
-    
 }

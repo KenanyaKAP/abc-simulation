@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ECGRenderer : MonoBehaviour {
+    public static ECGRenderer Instance;
     
     [Header("Properties")]
     [SerializeField] ECGLine activeLine = ECGLine.Inactive;
@@ -117,6 +118,13 @@ public class ECGRenderer : MonoBehaviour {
     };
 
     void Awake() {
+        if (!Instance) {
+            Instance = this;
+        } else {
+            Debug.LogError("ECGRenderer already created!");
+            Destroy(gameObject);
+        }
+
         line = GetComponent<LineRenderer>();
     }
 
@@ -177,5 +185,9 @@ public class ECGRenderer : MonoBehaviour {
 
     public void ChangeECGLine(ECGLine ecgLine) {
         activeLine = ecgLine;
+    }
+
+    public void ChangeECGLine(int value) {
+        activeLine = (ECGLine)value;
     }
 }

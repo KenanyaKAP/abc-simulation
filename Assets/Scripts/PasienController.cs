@@ -81,10 +81,10 @@ public class PasienController : MonoBehaviour {
     int shockDone = 0;
     public void ShockPasien() {
         shockDone += 1;
-        
+
         // Animation
-        LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .12f).setEaseOutQuad().setLoopPingPong(1);
-        LeanTween.rotateAroundLocal(spine2,Vector3.right, 10f, .12f).setEaseOutQuad().setLoopPingPong(1);
+        LeanTween.rotateAroundLocal(spine1,Vector3.right, 10f, .2f).setEaseOutQuart().setOnComplete(() => LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .35f).setEaseInQuad());
+        LeanTween.scaleZ(spine1, 1.2f, .1f).setLoopPingPong(1);
     }
 
     int pcrDone = 0;
@@ -92,13 +92,25 @@ public class PasienController : MonoBehaviour {
         pcrDone += 1;
 
         // Animation
-        LeanTween.rotateAroundLocal(spine1,Vector3.right, 10f, .2f).setEaseOutQuart().setOnComplete(() => LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .35f).setEaseInQuad());
-        LeanTween.scaleZ(spine1, 1.2f, .1f).setLoopPingPong(1);
+        LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .12f).setEaseOutQuad().setLoopPingPong(1);
+        LeanTween.rotateAroundLocal(spine2,Vector3.right, 10f, .12f).setEaseOutQuad().setLoopPingPong(1);
     }
 
     JenisObat obatGiven;
     public void GiveObat(JenisObat obat) {
         obatGiven = obat;
+    }
+
+    // ============================= Public Pasien Function =============================
+
+    public void setmaskerTerpasang(bool val) {
+        maskerTerpasang = val;
+    }
+    public void setmonitorTerpasang(bool val) {
+        monitorTerpasang = val;
+    }
+    public void setinfusTerpasang(bool val) {
+        infusTerpasang = val;
     }
 
     // ============================= IEnumerator Function =============================
@@ -122,6 +134,7 @@ public class PasienController : MonoBehaviour {
     IEnumerator IEStartVTVF() {
         // Initial State VtVf
         state = PasienState.VtVf;
+        ECGRenderer.Instance.ChangeECGLine(ECGLine.VtVf);
         shockDone = 0;
         
     //////////////////////////////////////////////// STEP 1 ////////////////////////////////////////////////////////////////////////
@@ -193,6 +206,7 @@ public class PasienController : MonoBehaviour {
         //State Asistol
         //phase 1
         state = PasienState.Asystole;
+        ECGRenderer.Instance.ChangeECGLine(ECGLine.Asystole);
         pcrDone = 0;
 
         // Need to pcr
