@@ -15,6 +15,14 @@ public class SyringeController : MonoBehaviour {
     public void AmbilObat(JenisObat obat) {
         obatBorrowed = obat;
 
+        // Animation
         LeanTween.moveLocalX(gameObject, .035f, .5f).setEaseInOutQuad();
+    }
+
+    public void KasihObat() {
+        PasienController.Instance.GiveObat(obatBorrowed);
+
+        // Animation
+        LeanTween.moveLocalX(gameObject, -.035f, .5f).setEaseInOutQuad();
     }
 }
