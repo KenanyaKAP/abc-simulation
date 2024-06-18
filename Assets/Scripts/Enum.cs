@@ -22,7 +22,7 @@ public enum PasienState {
 
 public enum ECGLine {
     Inactive,
-    PEA,
+    Normal,
     VtVf,
     Asystole
 }

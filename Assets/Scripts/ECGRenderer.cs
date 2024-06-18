@@ -162,7 +162,7 @@ public class ECGRenderer : MonoBehaviour {
                 if (activeLine == ECGLine.Asystole) {
                     if (ecgLineIndex >= Asystole.Length) ecgLineIndex = 0;
                     outputHeight = Asystole[ecgLineIndex];
-                } else if (activeLine == ECGLine.PEA) {
+                } else if (activeLine == ECGLine.Normal) {
                     if (ecgLineIndex >= PEA.Length) ecgLineIndex = 0;
                     outputHeight = PEA[ecgLineIndex];
                 } else if (activeLine == ECGLine.VtVf) {
