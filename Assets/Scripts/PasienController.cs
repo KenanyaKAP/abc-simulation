@@ -81,7 +81,7 @@ public class PasienController : MonoBehaviour {
     int shockDone = 0;
     public void ShockPasien() {
         shockDone += 1;
-
+        
         // Animation
         LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .12f).setEaseOutQuad().setLoopPingPong(1);
         LeanTween.rotateAroundLocal(spine2,Vector3.right, 10f, .12f).setEaseOutQuad().setLoopPingPong(1);
