@@ -50,6 +50,7 @@ public class PasienController : MonoBehaviour {
     [SerializeField] GameObject spine2;
     [SerializeField] GameObject pcrButton;
     [SerializeField] GameObject shockHover;
+    [SerializeField] GameObject obatSocket;
 
     void Awake() {
         if (!Instance) {
@@ -167,6 +168,7 @@ public class PasienController : MonoBehaviour {
         // Phase 1
         shockHover.SetActive(true);
         yield return new WaitUntil(() => shockDone >= minShockVtVf ); // need shock
+        shockHover.SetActive(false);
         
         eventVtVf2CPR.Invoke();
         pcrDone = 0;
@@ -189,6 +191,7 @@ public class PasienController : MonoBehaviour {
 
         shockHover.SetActive(true);
         yield return new WaitUntil(() => shockDone >= minShockVtVf ); // need shock
+        shockHover.SetActive(false);
         eventVtVf5CPR.Invoke();
 
         pcrButton.SetActive(true);
@@ -198,7 +201,9 @@ public class PasienController : MonoBehaviour {
         eventVtVf6Epinephrine.Invoke();
         
         obatGiven = JenisObat.None;
+        obatSocket.SetActive(true);
         yield return new WaitUntil(() => obatGiven != JenisObat.None); // Need to Give Apinepherin
+        obatSocket.SetActive(false);
 
         // Wrong medicine 
         if (obatGiven != JenisObat.Epinephrine) {
@@ -220,6 +225,7 @@ public class PasienController : MonoBehaviour {
 
         shockHover.SetActive(true);
         yield return new WaitUntil(() => shockDone >= minShockVtVf ); // need shock
+        shockHover.SetActive(false);
         eventVtVf9CPR.Invoke();
 
         pcrButton.SetActive(true);
@@ -229,7 +235,9 @@ public class PasienController : MonoBehaviour {
         eventVtVf10Amiodarone.Invoke(); 
         // Need to Give Amiodarone
         obatGiven = JenisObat.None;
+        obatSocket.SetActive(true);
         yield return new WaitUntil(() => obatGiven != JenisObat.None);
+        obatSocket.SetActive(false);
 
         // Wrong medicine 
         if (obatGiven != JenisObat.Amiodarone) {
@@ -264,7 +272,9 @@ public class PasienController : MonoBehaviour {
 
         // Need to Give Epinephrine
         obatGiven = JenisObat.None;
+        obatSocket.SetActive(true);
         yield return new WaitUntil(() => obatGiven != JenisObat.None);
+        obatSocket.SetActive(false);
 
         // Wrong medicine 
         if (obatGiven != JenisObat.Epinephrine) {

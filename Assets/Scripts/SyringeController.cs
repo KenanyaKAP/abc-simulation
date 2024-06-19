@@ -4,25 +4,21 @@ using UnityEngine;
 
 public class SyringeController : MonoBehaviour {
     [SerializeField] GameObject handle;
-    public JenisObat obatBorrowed;
-
-    void OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Obat")) {
-            AmbilObat(other.GetComponent<ObatKaca>().jenisObat);
-        }
-    }
+    public JenisObat obatBorrowed = JenisObat.None;
 
     public void AmbilObat(JenisObat obat) {
         obatBorrowed = obat;
 
+        handle.transform.localPosition = new Vector3(-.035f, handle.transform.localPosition.y, handle.transform.localPosition.z);
+
         // Animation
-        LeanTween.moveLocalX(gameObject, .035f, .5f).setEaseInOutQuad();
+        LeanTween.moveLocalX(handle, .035f, .5f).setEaseInOutQuad();
     }
 
     public void KasihObat() {
         PasienController.Instance.GiveObat(obatBorrowed);
 
         // Animation
-        LeanTween.moveLocalX(gameObject, -.035f, .5f).setEaseInOutQuad();
+        LeanTween.moveLocalX(handle, -.035f, .5f).setEaseInOutQuad();
     }
 }
