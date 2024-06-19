@@ -11,6 +11,8 @@ public class PasienController : MonoBehaviour {
     // Must added to 1
     [SerializeField] float vtvfChance = .5f;
     [SerializeField] float asistolChance = .5f;
+    public UnityEvent cprSound;
+    public UnityEvent shockSound;
 
     [Header("Properties (Do Not Change!)")]
     public PasienState state;
@@ -101,6 +103,7 @@ public class PasienController : MonoBehaviour {
         shockDelay = true;
 
         // Animation
+        shockSound.Invoke();
         LeanTween.rotateAroundLocal(spine1,Vector3.right, 10f, .2f).setEaseOutQuart()
             .setOnComplete(() => LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .35f).setEaseInQuad()
             .setOnComplete(() => shockDelay = false));
@@ -116,6 +119,7 @@ public class PasienController : MonoBehaviour {
         pcrDelay = true;
 
         // Animation
+        cprSound.Invoke();
         LeanTween.rotateAroundLocal(spine1,Vector3.right, -10f, .12f).setEaseOutQuad().setLoopPingPong(1);
         LeanTween.rotateAroundLocal(spine2,Vector3.right, 10f, .12f).setEaseOutQuad().setLoopPingPong(1)
         .setOnComplete(() => pcrDelay = false);
