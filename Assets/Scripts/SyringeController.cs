@@ -17,6 +17,7 @@ public class SyringeController : MonoBehaviour {
 
     public void KasihObat() {
         PasienController.Instance.GiveObat(obatBorrowed);
+        obatBorrowed = JenisObat.None;
 
         // Animation
         LeanTween.moveLocalX(handle, -.035f, .5f).setEaseInOutQuad();

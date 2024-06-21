@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager Instance;
@@ -44,6 +45,12 @@ public class GameManager : MonoBehaviour {
         gameState = GameState.Win;
         onGameWin.Invoke();
         Debug.Log("Game Win! Pasien Survived!");
+
+        StartCoroutine(GameWinBackToMainMenu());
+    }
+
+    public void RestartLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // ============================= IEnumerator Function =============================
@@ -57,5 +64,11 @@ public class GameManager : MonoBehaviour {
 
         onGameStart.Invoke();
         Debug.Log("OnGameStart Invoked");
+    }
+
+    IEnumerator GameWinBackToMainMenu() {
+        yield return new WaitForSeconds(6);
+
+        SceneManager.LoadScene(0);
     }
 }

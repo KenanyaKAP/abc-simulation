@@ -13,6 +13,7 @@ public class PasienController : MonoBehaviour {
     [SerializeField] float asistolChance = .5f;
     public UnityEvent cprSound;
     public UnityEvent shockSound;
+    public UnityEvent wrongMed;
 
     [Header("Properties (Do Not Change!)")]
     public PasienState state;
@@ -203,19 +204,22 @@ public class PasienController : MonoBehaviour {
         pcrButton.SetActive(false);
 
         eventVtVf6Epinephrine.Invoke();
-        
-        obatGiven = JenisObat.None;
-        obatSocket.SetActive(true);
-        yield return new WaitUntil(() => obatGiven != JenisObat.None); // Need to Give Apinepherin
-        obatSocket.SetActive(false);
 
-        // Wrong medicine 
-        if (obatGiven != JenisObat.Epinephrine) {
-            // Game Over
-            GameManager.Instance.GameOver();
-            yield break;
+        // Need to Give Epinephrine
+        while(true) {
+            obatGiven = JenisObat.None;
+            obatSocket.SetActive(true);
+            yield return new WaitUntil(() => obatGiven != JenisObat.None); // Need to Give Epinephrine
+            obatSocket.SetActive(false);
+
+            // Wrong medicine 
+            if (obatGiven != JenisObat.Epinephrine) {
+                wrongMed.Invoke();
+            } else if (obatGiven == JenisObat.Epinephrine) {
+                state = PasienState.Normal;
+                break;
+            }
         }
-        state = PasienState.Normal;
 
         eventVtVf7Cek.Invoke();
         // Wait Condition in montitor
@@ -237,17 +241,21 @@ public class PasienController : MonoBehaviour {
         pcrButton.SetActive(false);
         
         eventVtVf10Amiodarone.Invoke(); 
+        
         // Need to Give Amiodarone
-        obatGiven = JenisObat.None;
-        obatSocket.SetActive(true);
-        yield return new WaitUntil(() => obatGiven != JenisObat.None);
-        obatSocket.SetActive(false);
+        while(true) {
+            obatGiven = JenisObat.None;
+            obatSocket.SetActive(true);
+            yield return new WaitUntil(() => obatGiven != JenisObat.None); // Need to Give Apinepherin
+            obatSocket.SetActive(false);
 
-        // Wrong medicine 
-        if (obatGiven != JenisObat.Amiodarone) {
-            // Game Over
-            GameManager.Instance.GameOver();
-            yield break;
+            // Wrong medicine 
+            if (obatGiven != JenisObat.Amiodarone) {
+                wrongMed.Invoke();
+            } else if (obatGiven == JenisObat.Amiodarone) {
+                state = PasienState.Normal;
+                break;
+            }
         }
 
         eventVtVf11Cek.Invoke();
@@ -275,16 +283,19 @@ public class PasienController : MonoBehaviour {
         eventAsystole2Epinephrine.Invoke();
 
         // Need to Give Epinephrine
-        obatGiven = JenisObat.None;
-        obatSocket.SetActive(true);
-        yield return new WaitUntil(() => obatGiven != JenisObat.None);
-        obatSocket.SetActive(false);
+        while(true) {
+            obatGiven = JenisObat.None;
+            obatSocket.SetActive(true);
+            yield return new WaitUntil(() => obatGiven != JenisObat.None); // Need to Give Epinephrine
+            obatSocket.SetActive(false);
 
-        // Wrong medicine 
-        if (obatGiven != JenisObat.Epinephrine) {
-            // Game Over
-            GameManager.Instance.GameOver();
-            yield break;
+            // Wrong medicine 
+            if (obatGiven != JenisObat.Epinephrine) {
+                wrongMed.Invoke();
+            } else if (obatGiven == JenisObat.Epinephrine) {
+                state = PasienState.Normal;
+                break;
+            }
         }
 
         eventAsystole3Cek.Invoke();
